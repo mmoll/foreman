@@ -51,6 +51,11 @@
     Enable `raise_on_unfiltered_parameters` to respect parameter filtering, which is the default in new
     applications. For the existing deprecated behaviour, call #to_unsafe_h instead.'
   callstack: app/models/compute_resources/foreman/model/libvirt.rb:125:in `new_vm'
+- message: 'Method to_hash is deprecated and will be removed in Rails 5.1, as `ActionController::Parameters`
+    no longer inherits from hash. Using this deprecated behavior exposes potential
+    security problems. If you continue to use this method you may be creating a security
+    vulnerability in your app that can be exploited. Instead, consider using one of'
+  callstack: app/models/compute_resources/foreman/model/libvirt.rb:125:in `new_vm'
 - message: 'Method to_param is deprecated and will be removed in Rails 5.1, as `ActionController::Parameters`
     no longer inherits from hash. Using this deprecated behavior exposes potential
     security problems. If you continue to use this method you may be creating a security
@@ -111,10 +116,6 @@
     instead.
   callstack: app/controllers/application_controller.rb:102:in `block (2 levels) in
     not_found'
-- message: The :status option on `head` has been deprecated and will be removed in
-    Rails 5.1. Please pass the status as a separate parameter before the options,
-    instead.
-  callstack: app/controllers/notification_recipients_controller.rb:30:in `update_group_as_read'
 # http://projects.theforeman.org/issues/7570
 - message: You didn't set `secret_key_base`. Read the upgrade documentation to learn
     more about this new config option.
@@ -162,9 +163,6 @@
 - message: alias_method_chain is deprecated. Please, use Module#prepend instead. From
     module, you can access the original method using super.
   callstack: app/models/subnet.rb:287:in `singleton class'
-- message: alias_method_chain is deprecated. Please, use Module#prepend instead. From
-    module, you can access the original method using super.
-  callstack: app/models/concerns/facets/managed_host_extensions.rb:51:in `block in register_facet_relation'
 - message: alias_method_chain is deprecated. Please, use Module#prepend instead. From
     module, you can access the original method using super.
   callstack: config/environment.rb:5:in `<top (required)>'
