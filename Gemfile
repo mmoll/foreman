@@ -29,7 +29,7 @@ gem 'safemode', '~> 1.3', '>= 1.3.2'
 gem 'fast_gettext', '~> 1.4'
 gem 'gettext_i18n_rails', '~> 1.0'
 gem 'rails-i18n', '~> 5.0.0'
-gem 'turbolinks', '~> 2.5'
+gem 'turbolinks', '~> 2.5', :git => 'https://github.com/dobtco/turbolinks-classic.git', branch: 'fix-deprecations' # PR 671
 gem 'logging', '>= 1.8.0', '< 3.0.0'
 gem 'fog-core', '1.45.0'
 gem 'net-scp'
