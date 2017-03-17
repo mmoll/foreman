@@ -16,7 +16,7 @@ class Api::V2::ParametersControllerTest < ActionController::TestCase
   end
 
   test "should get index for specific domain" do
-    get :index, {:domain_id => domains(:mydomain).to_param }
+    get :index, params: { :domain_id => domains(:mydomain).to_param }
     assert_response :success
     assert_not_nil assigns(:parameters)
     parameters = ActiveSupport::JSON.decode(@response.body)
