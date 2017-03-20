@@ -1188,7 +1188,7 @@ class HostsControllerTest < ActionController::TestCase
     setup_user 'edit', 'hosts', "owner_type = User and owner_id = #{users(:restricted).id}", :restricted
     host_ids = [host.id]
     #the ajax can be any of the multiple actions, toke multiple_parameters for example
-    xhr :post, :multiple_parameters, {:host_ids => host_ids}, set_session_user(:restricted)
+    post :multiple_parameters, params: {:host_ids => host_ids}, session: set_session_user(:restricted), xhr: true
     assert_response :success
   end
 
@@ -1196,20 +1196,20 @@ class HostsControllerTest < ActionController::TestCase
     host = FactoryGirl.create(:host)
     host2 = FactoryGirl.create(:host)
     host_ids = [host.id, host2.id]
-    xhr :post, :multiple_parameters, {:host_ids => host_ids}, set_session_user
+    post :multiple_parameters, params: {:host_ids => host_ids}, session: set_session_user, xhr: true
     assert_response :success
     assert_includes response.body, host.name
     assert_includes response.body, host2.name
   end
 
   test "select multiple action with empty host_ids should redirect to hosts page" do
-    xhr :post, :multiple_parameters, {:host_ids => []}, set_session_user
+    post :multiple_parameters, params: {:host_ids => []}, session: set_session_user, xhr: true
     assert_response :redirect, hosts_path
     assert_not_nil flash[:error]
   end
 
   test "select multiple action with not exists host_ids should redirect to hosts page" do
-    xhr :post, :multiple_parameters, {:host_ids => [-1,2]}, set_session_user
+    post :multiple_parameters, params: {:host_ids => [-1,2]}, session: set_session_user, xhr: true
     assert_response :redirect, hosts_path
     assert_not_nil flash[:error]
   end
@@ -1258,7 +1258,7 @@ class HostsControllerTest < ActionController::TestCase
 
   test '#review_before_build' do
     HostBuildStatus.any_instance.stubs(:host_status).returns(true)
-    xhr :get, :review_before_build, {:id => @host.name}, set_session_user
+    get :review_before_build, params: {:id => @host.name}, session: set_session_user, xhr: true
     assert_response :success
     assert_template 'review_before_build'
   end
@@ -1312,7 +1312,7 @@ class HostsControllerTest < ActionController::TestCase
     attrs[:interfaces_attributes] = nic.attributes.except 'updated_at', 'created_at', 'attrs'
     ActiveRecord::Base.any_instance.expects(:destroy).never
     ActiveRecord::Base.any_instance.expects(:save).never
-    xhr :put, :process_taxonomy, { :host => attrs }, set_session_user
+    put :process_taxonomy, params: { :host => attrs }, session: set_session_user, xhr: true
     assert_response :success
     assert response.body.include?(nic.attributes["mac"])
     assert_template :partial => '_form'
