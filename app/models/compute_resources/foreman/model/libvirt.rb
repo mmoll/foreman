@@ -135,6 +135,8 @@ module Foreman::Model
       opts[:boot_order] = %w[hd]
       opts[:boot_order].unshift 'network' unless attr[:image_id]
 
+      opts[:cpu][:mode] = 'host-model' if attr[:copy_host_cpu]
+
       vm = client.servers.new opts
       vm.memory = opts[:memory] if opts[:memory]
       vm

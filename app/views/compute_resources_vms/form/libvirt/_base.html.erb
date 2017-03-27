@@ -3,6 +3,7 @@
 <%= text_f f, :name, :label => _('Name'), :label_size => "col-md-2", :disabled => !new_vm if show_vm_name? %>
 
 <%= counter_f f, :cpus, :disabled => !new_vm, :label => _('CPUs'), :label_size => 'col-md-2', :'data-soft-max' => compute_resource.max_cpu_count %>
+<%= checkbox_f f, :copy_host_cpu, { :checked => false, :help_inline => _("Copy host CPU configuration"), :label => _('Copy host CPU'), :label_size => "col-md-2"} if new_vm %>
 
 <%= byte_size_f f, :memory, :disabled => !new_vm, :label => _('Memory'), :label_size => "col-md-2", :'data-soft-max' => compute_resource.max_memory %>
 
