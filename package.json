@@ -52,7 +52,7 @@
     "webpack-stats-plugin": "^0.1.5"
   },
   "optionalDependencies": {
-    "phantomjs-prebuilt": "^2.1.0"
+    "chromedriver": "^2.33.0"
   },
   "dependencies": {
     "babel-polyfill": "^6.26.0",

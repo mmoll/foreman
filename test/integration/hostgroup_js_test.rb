@@ -110,7 +110,7 @@ class HostgroupJSTest < IntegrationTestWithJavascript
     click_link 'Parameters'
     assert page.has_no_selector?("#inherited_parameters #name_x")
 
-    click_link 'Hostgroup'
+    click_link 'Host Group'
     select2(group.name, :from => 'hostgroup_parent_id')
     wait_for_ajax
 
