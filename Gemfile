@@ -7,7 +7,16 @@ source 'https://rubygems.org'
 
 case SETTINGS[:rails]
 when '5.1'
-  gem 'rails', '5.1.4'
+  case ENV['RAILS_TRV']
+  when '514'
+    gem 'rails', '5.1.4'
+  when '51s'
+    gem 'rails', github: 'rails/rails', branch: '5-1-stable'
+  when '52s'
+    gem 'rails', github: 'rails/rails', branch: 'master'
+  else
+    raise 'TRAVIS RAILS VERSION!'
+  end
 else
   raise "Unsupported Ruby on Rails version configured in settings.yaml: #{SETTINGS[:rails]}"
 end
