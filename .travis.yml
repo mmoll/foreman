@@ -1,5 +1,55 @@
-language: node_js
-node_js:
-  - '10'
-  - '12.13.0' # Pinned due to a bug: moudle loading error (jest) 
-script: ./script/travis_run_js_tests.sh
+sudo: true
+dist: xenial
+language: ruby
+cache:
+  bundler: true
+  directories:
+    - $HOME/.npm
+env:
+  - DB=sqlite RAILS_TRV=521
+  - DB=sqlite RAILS_TRV=52s
+#  - DB=sqlite RAILS_TRV=60s
+#  - DB=mysql RAILS_TRV=521
+#  - DB=mysql RAILS_TRV=52s
+#  - DB=mysql RAILS_TRV=60s
+  - DB=postgresql RAILS_TRV=521
+  - DB=postgresql RAILS_TRV=52s
+#  - DB=postgresql RAILS_TRV=60s
+addons:
+  mariadb: '10.4'
+  postgresql: '11.5'
+  chrome: stable
+services:
+  - postgresql
+#  - mysql
+rvm:
+  - 2.6.3
+#  - ruby-head
+before_install:
+  - sudo apt-get -qq update
+  - sudo apt-get install -y libsystemd-dev libvirt-dev
+  - sudo apt-get --yes remove postgresql\*
+  - sudo apt-get install -y postgresql-11 postgresql-client-11
+  - sudo cp /etc/postgresql/{9.6,11}/main/pg_hba.conf
+  - sudo service postgresql restart 11
+before_script:
+  - psql --version
+  - psql -c 'CREATE DATABASE foreman;' -U postgres
+  - psql -c 'CREATE ROLE travis SUPERUSER LOGIN CREATEDB;' -U postgres
+#  - sudo mysql -e 'CREATE DATABASE foreman DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;'
+#  - sudo mysql -e "CREATE USER 'travis'@'localhost' IDENTIFIED BY 'travis';"
+#  - sudo mysql -e "GRANT ALL PRIVILEGES ON foreman.* TO 'travis'@'localhost';"
+#  - sudo mysql -e 'FLUSH PRIVILEGES;'
+  - cp config/settings.yaml.travis config/settings.yaml
+  - cp config/database.yml.travis config/database.yml
+  - gem update --system
+bundler_args: --jobs=4 --retry=3 --without=development
+script:
+  - . $HOME/.nvm/nvm.sh
+  - nvm install stable
+  - nvm use stable
+  - npm install --unsafe-perm
+  - AS_DEPRECATION_RECORD=yes bundle exec rake db:migrate VERBOSE=false RAILS_ENV=test
+  - AS_DEPRECATION_RECORD=yes NOTIFICATIONS_POLLING=1000000 bundle exec rake jenkins:unit jenkins:integration
+#  - 'if [ "$DB" != "sqlite" ]; then AS_DEPRECATION_RECORD=yes NOTIFICATIONS_POLLING=1000000 bundle exec rake jenkins:integration; fi'
+  - cat config/as_deprecation_whitelist.yaml

@@ -152,6 +152,9 @@ module Foreman
     # like if you have constraints or database-specific column types
     # config.active_record.schema_format = :sql
 
+    # Rails 5.2+
+    config.active_record.sqlite3.represent_boolean_as_integer = true
+
     # enables JSONP support in the Rack middleware
     config.middleware.use Rack::JSONP if SETTINGS[:support_jsonp]
 

@@ -8,9 +8,18 @@ source 'https://rubygems.org'
 # rubocop:disable Bundler/DuplicatedGem
 case SETTINGS[:rails]
 when '5.2'
-  gem 'rails', '5.2.1'
-when '6.0'
-  gem 'rails', '6.0.2.1'
+  case ENV['RAILS_TRV']
+  when '521'
+    gem 'rails', '5.2.1'
+  when '52s'
+    gem 'rails', github: 'rails/rails', branch: '5-2-stable'
+  when '60s'
+    gem 'rails', github: 'rails/rails', branch: '6-0-stable'
+  when 'master'
+    gem 'rails', github: 'rails/rails', branch: 'master'
+  else
+    raise 'TRAVIS RAILS VERSION!'
+  end
 else
   raise "Unsupported Ruby on Rails version configured in settings.yaml: #{SETTINGS[:rails]}"
 end
