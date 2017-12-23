@@ -1,10 +1,41 @@
-language: node_js
-node_js:
-  - '6.10' # current EPEL 7
-  - '6' # previous LTS
-  - '8' # current LTS
+sudo: true
+language: ruby
+env:
+  - DB=sqlite RAILS_TRV=516
+#  - DB=sqlite RAILS_TRV=51s
+#  - DB=sqlite RAILS_TRV=520
+#  - DB=sqlite RAILS_TRV=52s
+  - DB=mysql RAILS_TRV=516
+#  - DB=mysql RAILS_TRV=51s
+#  - DB=mysql RAILS_TRV=520
+#  - DB=mysql RAILS_TRV=52s
+  - DB=postgresql RAILS_TRV=516
+#  - DB=postgresql RAILS_TRV=51s
+#  - DB=postgresql RAILS_TRV=520
+#  - DB=postgresql RAILS_TRV=52s
+addons:
+  postgresql: "9.6"
+services:
+  - postgresql
+  - mysql
+rvm:
+#  - 2.4.3
+  - 2.5.1
 before_install:
-  - sudo apt-get install -y libsystemd-journal-dev
-  - cp config/settings.yaml.example config/settings.yaml
-  - bundle install --without console development ec2 fog gce jsonp libvirt mysql2 openid openstack ovirt postgresql rackspace sqlite test vmware
-script: ./script/travis_run_js_tests.sh
+  - sudo apt-get -qq update
+  - sudo apt-get install -y libsystemd-journal-dev libvirt-dev
+  - psql -c 'CREATE DATABASE foreman;' -U postgres
+  - mysql -e 'CREATE DATABASE foreman DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;'
+  - cp config/settings.yaml.travis config/settings.yaml
+  - cp config/database.yml.travis config/database.yml
+  - gem update --system
+bundler_args: --jobs=4 --retry=3 --without=development
+script:
+  - . $HOME/.nvm/nvm.sh
+  - nvm install stable
+  - nvm use stable
+  - npm install --unsafe-perm
+  - AS_DEPRECATION_RECORD=yes bundle exec rake db:migrate RAILS_ENV=test
+  - AS_DEPRECATION_RECORD=yes NOTIFICATIONS_POLLING=1000000 bundle exec rake jenkins:unit jenkins:integration
+#  - 'if [ "$DB" != "sqlite" ]; then AS_DEPRECATION_RECORD=yes NOTIFICATIONS_POLLING=1000000 bundle exec rake jenkins:integration; fi'
+  - cat config/as_deprecation_whitelist.yaml
