@@ -1,7 +1,7 @@
 require 'minitest/autorun'
 require 'json'
 
-class PluginWebpackDirectoriesTest < ActiveSupport::TestCase
+class PluginWebpackDirectoriesTest < Minitest::Test
   def setup
     @root_dir = File.expand_path(File.join(%w[.. .. .. ..]), __FILE__)
     @script = File.join(%W[#{@root_dir} script plugin_webpack_directories.rb])
