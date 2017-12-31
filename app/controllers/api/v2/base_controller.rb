@@ -50,7 +50,7 @@ module Api
       end
 
       def metadata_total
-        @total ||= resource_scope.try(:count).to_i
+        @total ||= resource_scope.unscoped.try(:count).to_i
       end
 
       def metadata_subtotal

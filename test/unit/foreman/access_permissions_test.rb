@@ -40,7 +40,12 @@ class AccessPermissionsTest < ActiveSupport::TestCase
 
     # Content Security Policy report forwarding endpoint - noop if not configured.
     # See https://github.com/twitter/secureheaders/issues/113
-    "content_security_policy/scribe"
+    "content_security_policy/scribe",
+
+    # skip Active Storage controllers
+    # https://github.com/rails/rails/issues/31228
+    "active_storage/blobs/show", "active_storage/direct_uploads/create", "active_storage/disk/show",
+    "active_storage/disk/update", "active_storage/previews/show", "active_storage/variants/show"
   ]
 
   MAY_SKIP_AUTHORIZED = [ "about/index" ]
