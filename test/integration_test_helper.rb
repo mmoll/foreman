@@ -22,7 +22,7 @@ Capybara.register_driver :selenium_chrome do |app|
     desired_capabilities: capabilities
 end
 
-Capybara.default_max_wait_time = 5
+Capybara.default_max_wait_time = 30
 Capybara.javascript_driver = :selenium_chrome
 
 class ActionDispatch::IntegrationTest
