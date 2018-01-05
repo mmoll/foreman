@@ -14,7 +14,8 @@ env:
   - DB=postgresql RAILS_TRV=51s
   - DB=postgresql RAILS_TRV=52s
 addons:
-  postgresql: "9.6"
+  - postgresql: "9.6"
+  - chrome: stable
 services:
   - postgresql
   - mysql
@@ -29,6 +30,12 @@ before_install:
   - cp config/settings.yaml.travis config/settings.yaml
   - cp config/database.yml.travis config/database.yml
   - gem update --system
+  - wget http://chromedriver.storage.googleapis.com/2.32/chromedriver_linux64.zip
+  - unzip chromedriver_linux64.zip
+  - rm chromedriver_linux64.zip
+  - sudo mv -f chromedriver /usr/local/bin/
+  - sudo chmod +x /usr/local/bin/chromedriver
+  - google-chrome-stable --headless -disable-gpu --no-sandbox
 bundler_args: --jobs=4 --retry=3 --without=development
 script:
   - . $HOME/.nvm/nvm.sh
