@@ -138,6 +138,12 @@ module Foreman
 
     # Raise exception on mass assignment of unfiltered parameters
     config.action_controller.action_on_unpermitted_parameters = :raise
+    # Don't raise exception for common parameters
+    config.action_controller.always_permitted_parameters = %w(
+      controller action format locale utf8 _method authenticity_token commit redirect
+      page per_page paginate search order sort sort_by sort_order
+      _ie_support fakepassword apiv id organization_id location_id user_id
+    )
 
     # Use SQL instead of Active Record's schema dumper when creating the database.
     # This is necessary if your schema can't be completely dumped by the schema dumper,
