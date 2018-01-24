@@ -1,6 +1,6 @@
 require 'integration_test_helper'
 
-class UsergroupIntegrationTest < IntegrationTestWithJavascript
+class UsergroupJSIntegrationTest < IntegrationTestWithJavascript
   def setup
     as_admin { @usergroup = FactoryBot.create(:usergroup) }
   end
