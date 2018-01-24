@@ -175,8 +175,9 @@ class HostsController < ApplicationController
   end
 
   def current_parameters
+    host = refresh_host
     Taxonomy.as_taxonomy @organization, @location do
-      render :partial => "common_parameters/inherited_parameters", :locals => {:inherited_parameters => refresh_host.inherited_params_hash, :parameters => refresh_host.host_parameters}
+      render :partial => "common_parameters/inherited_parameters", :locals => {:inherited_parameters => host.inherited_params_hash, :parameters => host.host_parameters}
     end
   end
 
