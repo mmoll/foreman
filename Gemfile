@@ -24,7 +24,7 @@ else
 end
 
 gem 'rest-client', '>= 2.0.0', '< 3', :require => 'rest_client'
-gem 'audited', '~> 4.7'
+gem 'audited', '~> 4.7', '>= 4.7.1'
 gem 'will_paginate', '~> 3.0'
 gem 'ancestry', '>= 2.0', '< 4'
 gem 'scoped_search', '>= 4.1.3', '< 5'
@@ -32,7 +32,7 @@ gem 'ldap_fluff', '>= 0.4.7', '< 1.0'
 gem 'apipie-rails', '>= 0.5.2', '< 0.6.0'
 gem 'rabl', '~> 0.11'
 gem 'oauth', '>= 0.5.4', '< 1'
-gem 'deep_cloneable', '>= 2.2.2', '< 3.0'
+gem 'deep_cloneable', '>= 2.3.2', '< 3.0'
 gem 'validates_lengths_from_database', '~> 0.5'
 gem 'friendly_id', '~> 5.0'
 gem 'secure_headers', '~> 5.0'
