@@ -7,11 +7,11 @@ env:
 #  - DB=mysql RAILS_TRV=514
 #  - DB=mysql RAILS_TRV=51s
   - DB=mysql RAILS_TRV=520
-  - DB=mysql RAILS_TRV=52s
+#  - DB=mysql RAILS_TRV=52s
 #  - DB=postgresql RAILS_TRV=514
 #  - DB=postgresql RAILS_TRV=51s
   - DB=postgresql RAILS_TRV=520
-  - DB=postgresql RAILS_TRV=52s
+#  - DB=postgresql RAILS_TRV=52s
 addons:
   postgresql: "9.6"
 services:
@@ -28,6 +28,7 @@ before_install:
   - cp config/settings.yaml.travis config/settings.yaml
   - cp config/database.yml.travis config/database.yml
   - gem update --system
+  - sh install_discovery.sh
 bundler_args: --jobs=4 --retry=3 --without=development
 script:
   - . $HOME/.nvm/nvm.sh
