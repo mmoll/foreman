@@ -27,6 +27,7 @@ before_install:
   - mysql -e 'CREATE DATABASE foreman DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;'
   - cp config/settings.yaml.travis config/settings.yaml
   - cp config/database.yml.travis config/database.yml
+  - sh install_discovery.sh
 bundler_args: --jobs=4 --retry=3 --without=development
 script:
   - . $HOME/.nvm/nvm.sh
