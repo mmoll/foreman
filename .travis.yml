@@ -1,15 +1,15 @@
 sudo: true
 language: ruby
 env:
-#  - DB=sqlite RAILS_TRV=514
+  - DB=sqlite RAILS_TRV=514
 #  - DB=sqlite RAILS_TRV=516
 #  - DB=sqlite RAILS_TRV=52s
   - DB=mysql RAILS_TRV=514
-  - DB=mysql RAILS_TRV=516
+#  - DB=mysql RAILS_TRV=516
 #  - DB=mysql RAILS_TRV=520
 #  - DB=mysql RAILS_TRV=52s
   - DB=postgresql RAILS_TRV=514
-  - DB=postgresql RAILS_TRV=516
+#  - DB=postgresql RAILS_TRV=516
 #  - DB=postgresql RAILS_TRV=520
 #  - DB=postgresql RAILS_TRV=52s
 addons:
@@ -18,7 +18,7 @@ services:
   - postgresql
   - mysql
 rvm:
-#  - 2.4.3
+  - 2.4.3
   - 2.5.1
 before_install:
   - sudo apt-get -qq update
