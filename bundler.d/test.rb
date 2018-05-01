@@ -19,4 +19,5 @@ group :test do
   gem 'rfauxfactory', '~> 0.1'
   gem 'robottelo_reporter', '~> 0.1'
   gem 'webmock'
+  gem 'puma'
 end
