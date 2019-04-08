@@ -17,7 +17,7 @@ class Subnet < ApplicationRecord
   include BelongsToProxies
 
   attr_exportable :name, :network, :mask, :gateway, :dns_primary, :dns_secondary, :from, :to, :boot_mode,
-    :ipam, :vlanid, :mtu, :network_type, :description
+    :ipam, :vlanid, :mtu, :nic_delay, :network_type, :description
 
   # This sets the rails model name of all child classes to the
   # model name of the parent class, i.e. Subnet.
@@ -82,6 +82,7 @@ class Subnet < ApplicationRecord
   validates :name, :length => {:maximum => 255}, :uniqueness => true
   validates :vlanid, numericality: { :only_integer => true, :greater_than_or_equal_to => 0, :less_than => 4096}, :allow_blank => true
   validates :mtu, :presence => true
+  validates :nic_delay, numericality: { :only_integer => true, :greater_than_or_equal_to => 0, :less_than => 1024, allow_nil: true}, :allow_blank => true, :presence => true
 
   before_validation :normalize_addresses
   validate :ensure_ip_addrs_valid
@@ -96,7 +97,7 @@ class Subnet < ApplicationRecord
   }
 
   scoped_search :on => [:name, :network, :mask, :gateway, :dns_primary, :dns_secondary,
-                        :vlanid, :mtu, :ipam, :boot_mode, :type], :complete_value => true
+                        :vlanid, :mtu, :nic_delay, :ipam, :boot_mode, :type], :complete_value => true
 
   scoped_search :relation => :domains, :on => :name, :rename => :domain, :complete_value => true
   scoped_search :relation => :subnet_parameters, :on => :value, :on_key => :name, :complete_value => true, :only_explicit => true, :rename => :params
@@ -105,7 +106,7 @@ class Subnet < ApplicationRecord
 
   class Jail < ::Safemode::Jail
     allow :name, :network, :mask, :cidr, :title, :to_label, :gateway, :dns_primary, :dns_secondary, :dns_servers,
-          :vlanid, :mtu, :boot_mode, :dhcp?, :nil?, :has_vlanid?, :dhcp_boot_mode?, :description, :present?
+          :vlanid, :mtu, :nic_delay, :boot_mode, :dhcp?, :nil?, :has_vlanid?, :dhcp_boot_mode?, :description, :present?
   end
 
   # Subnets are displayed in the form of their network network/network mask

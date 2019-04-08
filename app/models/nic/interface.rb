@@ -69,6 +69,13 @@ module Nic
       attrs[:bridge]
     end
 
+    def nic_delay
+      if self.attrs['nic_delay'].present? && self.attrs['nic_delay'] > 0
+        return self.attrs['nic_delay']
+      end
+      nil
+    end
+
     def alias?
       self.virtual? && self.identifier.present? && self.identifier.include?(':')
     end

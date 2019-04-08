@@ -4,6 +4,7 @@ class SubnetTest < ActiveSupport::TestCase
   should validate_presence_of(:network)
   should validate_presence_of(:mask)
   should validate_presence_of(:mtu)
+  should validate_presence_of(:nic_delay)
   should_not validate_uniqueness_of(:network)
   should_not allow_value("asf:fwe6::we6s:q1").for(:network)
   should_not allow_value("asf:fwe6::we6s:q1").for(:mask)
@@ -143,6 +144,10 @@ class SubnetTest < ActiveSupport::TestCase
 
   test "should have MTU set to 1500 by default" do
     assert_equal 1500, Subnet.new.mtu
+  end
+
+  test "should have nic_delay set to nil by default" do
+    assert_equal nil, Subnet.new.nic_delay
   end
 
   describe '#dns_servers' do
