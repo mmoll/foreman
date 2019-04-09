@@ -70,9 +70,7 @@ module Nic
     end
 
     def nic_delay
-      if self.attrs['nic_delay'].present? && self.attrs['nic_delay'] > 0
-        return self.attrs['nic_delay']
-      end
+      return self.attrs['nic_delay'] if self.attrs['nic_delay'].present?
       nil
     end
 

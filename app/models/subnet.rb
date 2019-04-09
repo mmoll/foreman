@@ -82,7 +82,7 @@ class Subnet < ApplicationRecord
   validates :name, :length => {:maximum => 255}, :uniqueness => true
   validates :vlanid, numericality: { :only_integer => true, :greater_than_or_equal_to => 0, :less_than => 4096}, :allow_blank => true
   validates :mtu, :presence => true
-  validates :nic_delay, numericality: { :only_integer => true, :greater_than_or_equal_to => 0, :less_than => 1024, allow_nil: true}, :allow_blank => true, :presence => true
+  validates :nic_delay, numericality: { :only_integer => true, :greater_than_or_equal_to => 0, :less_than => 1024, allow_nil: true }, :allow_blank => true
 
   before_validation :normalize_addresses
   validate :ensure_ip_addrs_valid
