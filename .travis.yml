@@ -23,7 +23,8 @@ services:
   - postgresql
 #  - mysql
 rvm:
-  - 2.6.3
+  - 2.6.5
+  - 2.7.0
 #  - ruby-head
 before_install:
   - sudo apt-get -qq update
