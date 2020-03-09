@@ -1,12 +1,12 @@
 sudo: true
-dist: xenial
+dist: bionic
 language: ruby
 cache:
   bundler: true
   directories:
     - $HOME/.npm
 addons:
-  postgresql: '11.5'
+#  postgresql: '11.5'
   chrome: stable
 services:
   - postgresql
@@ -16,14 +16,14 @@ rvm:
 before_install:
   - sudo apt-get -qq update
   - sudo apt-get install -y libsystemd-dev libvirt-dev
-  - sudo apt-get --yes remove postgresql\*
-  - sudo apt-get install -y postgresql-11 postgresql-client-11
-  - sudo cp /etc/postgresql/{9.6,11}/main/pg_hba.conf
-  - sudo service postgresql restart 11
+#  - sudo apt-get --yes remove postgresql\*
+#  - sudo apt-get install -y postgresql-11 postgresql-client-11
+#  - sudo cp /etc/postgresql/{9.6,11}/main/pg_hba.conf
+#  - sudo service postgresql restart 11
 before_script:
   - psql --version
   - psql -c 'CREATE DATABASE foreman;' -U postgres
-  - psql -c 'CREATE ROLE travis SUPERUSER LOGIN CREATEDB;' -U postgres
+#  - psql -c 'CREATE ROLE travis SUPERUSER LOGIN CREATEDB;' -U postgres
   - cp config/settings.yaml.travis config/settings.yaml
   - cp config/database.yml.travis config/database.yml
 bundler_args: --jobs=4 --retry=3 --without=development
