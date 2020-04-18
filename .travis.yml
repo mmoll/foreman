@@ -11,7 +11,8 @@ addons:
 services:
   - postgresql
 rvm:
-  - 2.5.7
+  - 2.5.8
+  - 2.6.6
   - 2.7.1
 before_install:
   - sudo apt-get -qq update
