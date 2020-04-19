@@ -10,7 +10,7 @@ case SETTINGS[:rails]
 when '6.0'
   gem 'rails', '~> 6.0.3.1'
 when '6.1'
-  gem 'rails', git: 'https://github.com/rails/rails.git'
+  gem 'rails', git: 'https://github.com/rails/rails.git', branch: '6-0-stable'
 else
   raise "Unsupported Ruby on Rails version configured in settings.yaml: #{SETTINGS[:rails]}"
 end
